@@ -8,6 +8,6 @@ To use these blueprints, navigate to the "Blueprints" section in Home Assistant,
 
 ## Blueprints
 
-### [Add to Shopping List](add_to_shopping_list.yaml)
+### [Add to Shopping List](add-to-shopping-list.yaml)
 
 This blueprint allows you to add an item to your shopping list. If the item is already on the list, it will not be added again.
