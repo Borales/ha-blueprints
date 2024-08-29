@@ -1,0 +1,51 @@
+blueprint:
+  name: Add to Shopping List
+  description: Adds a new item to the given Shopping list. If the name exists in the list - it'll be removed first.
+  domain: automation
+  input:
+    config_section:
+      name: NFC Tag configuration
+      icon: mdi:nfc
+      input:
+        tag_id:
+          name: Tag
+          description: NFC tag to scan
+          selector:
+            entity:
+              filter:
+                domain: tag
+              multiple: false
+        shop_list_id:
+          name: Shopping List
+          description: A shopping list to add a new item to
+          selector:
+            entity:
+              filter:
+                domain: todo
+              multiple: false
+        item_name:
+          name: Item name
+          description: A name of the item to add to the shopping list
+          selector:
+            text:
+              type: text
+
+mode: single
+condition: []
+
+trigger:
+  platform: tag
+  tag_id: !input tag_id
+
+action:
+  - action: todo.remove_item
+    data:
+      item: !input item_name
+    target:
+      entity_id: !input shop_list_id
+    continue_on_error: true
+  - action: todo.add_item
+    target:
+      entity_id: !input shop_list_id
+    data:
+      item: !input item_name
